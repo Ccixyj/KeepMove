@@ -1,3 +1,3 @@
 # KeepMove
 
-keep move keep learn
+keep move , keep learn
