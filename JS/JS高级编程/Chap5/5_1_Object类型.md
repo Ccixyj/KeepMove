@@ -2,9 +2,9 @@
 Object类型
 ==
 
-Object类型是JS中使用最多的一个类型.
-创建Object有两种方式.
+Object类型是JS中使用最多的一个类型.Object的实例不具备多少功能,但对于应用程序中存储和传输数据而言,他们确实是非常理想的选择.
 
+创建Object有两种方式.
 ```js
 //1.使用new方式
 var person = new Object();
