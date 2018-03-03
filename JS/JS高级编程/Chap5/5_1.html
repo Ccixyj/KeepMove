@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>    
+//1.使用new方式
+var person = new Object();
+person.name = "zhang san";
+person.age = 29;
+
+//2.使用对象字面量表示法.
+var person = {
+    name:"zhang san",
+    age:29
+};
+
+//或者
+var person = {
+    name:"zhang san",
+    age:29
+};
+
+//字面量可选参数
+function display(args){
+    var output = "";
+    if (typeof args.name == "string") {
+        output += "Name is " + args.name + ";\n";
+    }
+
+    if (typeof args.age == "number") {  
+        output += "Age is "+ args.age + "; \n"
+    }
+
+    console.log(output);
+};
+
+display({
+    name : "zhang san",
+    age : 29
+});
+
+display({
+    name : "li si"
+});
+
+console.log(person.name );
+
+var porpName = "name";
+console.log(person[porpName])
+
+
+</script>
