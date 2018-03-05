@@ -54,4 +54,67 @@ var colors = ["red", "blue", "green"];
 colors[colors.length] = "black" //添加'black' ,index 为3 
 colors[colors.length] = "white" //添加'white' ,index 为4
 
+//push pop
+var colors = new Array();
+
+var count = colors.push("red" , "blue");
+console.log(count); //2
+
+var count = colors.push("black");
+console.log(count); //3
+
+var item = colors.pop()
+console.log(item); //black
+console.log(colors.length); //2
+
+
+//shift
+
+var colors = new Array();
+
+var count = colors.push("red" , "blue");
+console.log(count); //2
+
+var count = colors.push("black");
+console.log(count); //3
+
+var item = colors.shift()
+console.log(item); //red
+console.log(colors.length); //2
+
+//reverse
+var values = [0,1,5,10,15]
+values.reverse()
+console.log(values) //15,10,5,1,0
+
+//sort
+var values = [0,1,5,10,15]
+values.sort()
+console.log(values) //[0, 1, 10, 15, 5]
+
+function compare(a,b){
+    if(a<b) return-1;
+    if(a>b) return 1;
+    return 0;
+}
+
+values.sort(compare)
+console.log(values) //[0, 1, 10, 15, 5]
+
+function compare(a,b){
+    if(a<b) return 1;
+    if(a>b) return -1;
+    return 0;
+}
+
+values.sort(compare)
+console.log(values) //[0, 1, 10, 15, 5]
+
+//sclice
+
+var colors = ["red","green","blue","yellow","purple"]
+var colors2 = colors.slice(1) //["green","blue","yellow","purple"]
+var colors3 = colors.slice(1,4) //["green","blue","yellow"]
+
+
 </script>
