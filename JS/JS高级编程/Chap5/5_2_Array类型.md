@@ -18,7 +18,9 @@ var colors = new Array("red", "blue", "green");
 var colors = Array(3) //长度为3的数组
 var names = Array("json") //创建包含一项,即字符串json 
 ```
+
 第二种方法:使用数组字面量表示法.数组字面量由一对包含数组的方括号表示,多个数组直接以逗号分割.
+
 ```js
 //字面量
 var colors = ["red", "blue", "green"];
@@ -29,6 +31,7 @@ var ops = [,,,,,] //不要这样,会创建包含5或6项的数组
 ```
 
 读取和设置数组的值时,要使用方括号的索引值.
+
 ```js
 var colors = ["red", "blue", "green"];
 console.log(colors[0]); //打印第一项
@@ -48,6 +51,7 @@ var colors = ["red", "blue", "green"];
 colors.length = 5
 console.log(colors[4]) //undefined
 ```
+
 一开始`colors`有三项,将`length`设置为2后,会移除最后一项,在访问就是`undefined`了.如果这种大于长度的值,则会扩容到`length`的长度,且每一项都为`undefined`.
 
 利用`length`可以方便的在末尾添加新项.设置了`length`后,会重新计算`length`.
@@ -137,7 +141,7 @@ values.sort(compare)
 console.log(values) //[0, 1, 10, 15, 5]
 ```
 
-如果是降序,则叫魂比较函数的返回值即可.
+如果是降序,则对调比较函数的返回值即可.
 
 ```js
 function compare(a,b){
