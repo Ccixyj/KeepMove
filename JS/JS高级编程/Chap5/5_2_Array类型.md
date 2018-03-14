@@ -128,7 +128,7 @@ var values = [0,1,5,10,15]
 values.sort()
 console.log(values) //[0, 1, 10, 15, 5]
 ```
-发现在进行的是字符串比较.不服和需求.所有`sort()`可以接收一个比较参数.
+发现在进行的是字符串比较.不符合需求.所有`sort()`可以接收一个比较参数.
 
 ```
 function compare(a,b){
