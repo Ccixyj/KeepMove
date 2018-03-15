@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+
+//创建对象
+var person = new Object();
+person.name = "nick";
+person.age = 29;
+person.sayName = function(){
+    console.log(this.name);
+}
+
+//更多的使用字面量创建对象
+var person ={
+    name : "nick",
+    age : 29,
+    sayName : function(){
+        return this.name;
+    }
+}
+
+
+var o = {};
+Object.defineProperty(o,'a',{
+    value:1
+})
+o.a = 2;
+console.log(o.a); // 1
+delete o.a; //false
+for(let p in o){
+    console.log(p) //empty
+}
+
+</script>
