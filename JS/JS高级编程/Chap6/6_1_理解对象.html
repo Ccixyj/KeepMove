@@ -35,11 +35,62 @@ var o = {};
 Object.defineProperty(o,'a',{
     value:1
 })
-o.a = 2;
+o.a = 2; //设置a的值
 console.log(o.a); // 1
 delete o.a; //false
 for(let p in o){
     console.log(p) //empty
 }
+
+console.log();
+
+
+//访问器属性
+var book = {
+    _year:2004,
+    edition:1
+};
+
+
+Object.defineProperty(book,"year",{
+    // get:function(){return this._year; },
+    set:function(newVar){
+       if(newVar > 2004){
+        this._year = newVar;
+        this.edition += newVar - 2004;
+       }
+    }
+})
+
+book.year = 2005; 
+console.log(book.edition); //2
+
+console.log();
+
+//定义多个属性
+var book = {} ;
+Object.defineProperties(book,{
+    _year:{
+        writable : true, //可写
+        value:2004
+        },
+    edition:{
+        writable : true, //可写
+        value:1
+        },
+    year:{
+        get:function(){
+            return this._year ;
+        },
+        set:function(newVar){
+            if(newVar > 2004){
+                this._year = newVar;
+                this.edition += newVar - 2004;
+            }
+        }
+    }
+})
+book.year = 2005; 
+console.log(book.edition); //2
 
 </script>
