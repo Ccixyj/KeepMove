@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<style>
+    table {
+        width: 600px;
+        border-collapse: collapse;
+    }
+
+    td,
+    th {
+        width: 88px;
+        line-height: 30px;
+        font-size: 12px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="hook-arguments-example" v-demo:foo.a.b.c.hello.ok="message"></div>
+
+    <script>
+        Vue.directive('demo', {
+            bind: function (el, binding, vnode) {
+              
+                var s = JSON.stringify
+                el.innerHTML =
+                    'name: ' + s(binding.name) + '<br>' +
+                    'value: ' + s(binding.value) + '<br>' +
+                    'expression: ' + s(binding.expression) + '<br>' +
+                    'argument: ' + s(binding.arg) + '<br>' +
+                    'modifiers: ' + s(binding.modifiers) + '<br>' +
+                    'vnode keys: ' + Object.keys(vnode).join(', ')
+                    el.dataset.innerHtml = el.innerHTML.toSting();
+            },
+            inserted:function(el, binding, vnode){
+                var s = JSON.stringify
+                var ss =
+                    'name: ' + s(binding.name) + '<br>' +
+                    'value: ' + s(binding.value) + '<br>' +
+                    'expression: ' + s(binding.expression) + '<br>' +
+                    'argument: ' + s(binding.arg) + '<br>' +
+                    'modifiers: ' + s(binding.modifiers) + '<br>' +
+                    'vnode keys: ' + Object.keys(vnode).join(', ')
+
+                    console.log(ss);
+            }
+        })
+
+        new Vue({
+            el: '#hook-arguments-example',
+            data: {
+                message: 'hello!'
+            }
+        })
+    </script>
+
+</body>
+
+</html>

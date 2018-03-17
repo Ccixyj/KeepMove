@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<style>
+    table {
+        width: 600px;
+        border-collapse: collapse;
+    }
+
+    td,
+    th {
+        width: 88px;
+        line-height: 30px;
+        font-size: 12px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>name</th>
+                    <th>Date</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="it in filterItems(keyword)" :key="it.id">
+                    <td>{{it.id}}</td>
+                    <td>{{it.name}}</td>
+                    <td>{{it.date | hello }}</td>
+                    <td>
+                        <a href="#" @click.prevent="del(it.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Will Name is: {{ name }} </p>
+        <p> 名称:
+            <input v-model="name" placeholder="add branch name" @keyup.enter="insert(name)">
+            <button @click="insert(name)" :disabled="name.trim() == ''">添加</button>
+        </p>
+
+        <p>Search Name is: {{ keyword }} </p>
+        <p>
+            <input v-model="keyword" type="text" v-focus>
+            
+        </p>
+        <!-- 缩写语法 -->
+    </div>
+
+    <script>
+        const IdGen = Object.create(null)
+        Object.defineProperties(IdGen, {
+            "_id": {
+                value: 0,
+                writable: true
+            },
+            "getId": {
+                get: function () {
+                    this._id++;
+                    return this._id;
+                }
+            }
+        })
+
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            fmt = fmt || "yyyy-MM-dd hh:mm:ss"
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[
+                    k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+
+       
+        // vue
+        const app = new Vue({
+            el: "#app",
+            data: {
+                name: "",
+                keyword: "",
+                items: [{
+                        id: IdGen.getId,
+                        name: "法拉利",
+                        date: new Date().Format()
+                    },
+                    {
+                        id: IdGen.getId,
+                        name: "benz",
+                        date: new Date().Format()
+                    }
+                ]
+
+            },
+            methods: {
+                del(id) {
+                    // console.log(id);
+                    let index = this.items.findIndex((it) => it.id == id)
+                    this.items.splice(index, 1)
+                },
+
+                insert(name) {
+                    if (name.trim() == '') return
+                    console.log(name);
+                    this.items.push({
+                        id: IdGen.getId,
+                        name: name,
+                        date: new Date().Format()
+                    })
+                    this.name = ""
+                },
+                filterItems(key) {
+                    if (key.trim() == '') return this.items
+                    console.log(key)
+                    this.old = this.items;
+                    return this.items.filter(it => it.name.toLowerCase().includes(key.toLowerCase()))
+                }
+
+            },
+            //过滤器
+            filters: {
+                hello: (val) => `create time: ${val}`
+            },
+            //指令
+            directives: {
+                focus: {
+                    inserted: function (el) {
+                        console.log(el);
+                        el.focus()
+                    }
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
