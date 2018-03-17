@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="app">
+        
+        <button  v-on:click="clickMe">click me</button>
+
+
+        <!-- vif 切换消耗 -->
+        <!-- vshow 初适化消耗 -->
+        <h4 v-if="isIf">this is h4 .. isIf蛤蛤蛤蛤</h4>
+        <h4 v-show="isShow">this is h4 .. isShow蛤蛤蛤蛤</h4>
+    </div>
+
+    <script>
+        // vue
+        const app = new Vue({
+            el: "#app",
+            data: {
+             isIf : false,
+             isShow:false
+            },
+            methods:{
+                clickMe(){
+                    console.log("em.... you click me");
+                    this.isIf = !this.isIf;
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

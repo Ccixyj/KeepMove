@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="app">
+
+        <button @click="start">start</button>
+        <button @click="stop">stop</button>
+
+        <h4>{{msg}}</h4>
+    </div>
+
+    <script>
+        // vue
+        const app = new Vue({
+            el: "#app",
+            data: {
+                msg: "猥琐发育,别浪!"
+            },
+            methods: {
+                start() {
+                    if (this.id) return
+                    this.id = setInterval(() => {
+                        this.msg = this.msg.slice(1) + this.msg.slice(0, 1)
+                    }, 300)
+                },
+                stop() {
+                    clearInterval(this.id)
+                    this.id = null;
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
