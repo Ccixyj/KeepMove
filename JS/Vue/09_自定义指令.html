@@ -41,9 +41,10 @@
                     'argument: ' + s(binding.arg) + '<br>' +
                     'modifiers: ' + s(binding.modifiers) + '<br>' +
                     'vnode keys: ' + Object.keys(vnode).join(', ')
-                    el.dataset.innerHtml = el.innerHTML.toSting();
+                    el.dataset.innerHtml = el.innerHTML.toString();
             },
             inserted:function(el, binding, vnode){
+                console.log(binding.value)
                 var s = JSON.stringify
                 var ss =
                     'name: ' + s(binding.name) + '<br>' +
