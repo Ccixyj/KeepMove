@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<style>
+    .static {
+        border: 2px solid red;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .cyan {
+        color: cyan;
+    }
+
+    .thin {
+        font-size: 15px;
+    }
+
+    .bold {
+        font-size: 50px;
+    }
+</style>
+
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="app">
+        <button @click="handler">change</button>
+        <h4 :class="['red' , 'thin']">我是一个h4</h4>
+        <h4 :class="['cyan' , 'bold']">我是一个h4</h4>
+        <h4 class="static" :class="clazz">我是一个h4</h4>
+        <h4 class="static" :class="clazzPredition">我是一个h4</h4>
+
+        <hr>
+        <!-- style -->
+        <h4  :style="{color:'red' , fontSize:'50px'}">我是一个h4,style</h4>
+        <h4  :style="styleObj">我是一个h4,style</h4>
+
+    </div>
+
+    <script>
+        // vue
+        const app = new Vue({
+            el: "#app",
+            data: {
+                clazz: ['bold', 'red'],
+                clazzPredition: {
+                    //     [
+                    //        { bold:123},
+                    //        {cyan:{}}
+                    //    ]
+                    bold: function(){ return false;}(),
+                    cyan: {}
+                },
+                styleObj:{
+                    color:'#ff00ff',
+                    fontSize:'20px'
+                }
+            },
+            methods: {
+                handler() {
+
+                }
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

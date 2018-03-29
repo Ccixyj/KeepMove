@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+</head>
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="app">
+        <!-- 插值表达式 -->
+        <h4 c-cloak>{{ name }}</h4> 
+        <!-- v text 表达式 -->
+        <h4 v-text="name"></h4> 
+        <hr>
+        <h4 v-text="msg1"></h4> 
+        <h4 v-html="msg1"></h4> 
+        <hr>
+        <h4 v-html="flag ? msg2 : 'flag false'"></h4> 
+
+    </div>
+    
+    <script>
+        // vuew 
+        const app = new Vue({
+            el :"#app",
+            data :{
+                //data 就是model.
+                name : "这是一个vue的简单例子",
+                msg1:'<h4 style="color:blueviolet">这是一段html文本</h4>',
+                msg2:'<h4 style="color:blueviolet">这是一段html文本,使用flag</h4>',
+                flag: (()=>Math.random() * 2 < 1)()
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>

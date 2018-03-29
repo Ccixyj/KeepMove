@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<style>
+    li{
+        list-style: none;
+    }
+    .divider{
+        height: 1px;
+        width: 100%;
+        background-color:rgb(214, 214, 214);
+    }
+</style>
+
+<body>
+    <!-- 创建一个Vue的容器 -->
+    <div id="app">
+
+        <ul>
+            <div v-for="(item , i) in arr1" :key="i">
+                {{i + 1}} -- {{ item }}
+            </div>
+
+            <div v-for="(item , i) in arr2" :key="item.name">
+                {{i + 1}} -- {{ item.name }} --{{item.age}}
+            </div>
+
+            
+            <div v-for="(v,k,i) in {age:16,name:'wang'}">
+                    {{i+1}} : {{v}} --- {{k}}
+                </div>
+        </ul>
+
+        <ul>
+                <template v-for="item in items">
+                  <li>{{ item.msg }}</li>
+                  <li class="divider"></li>
+                </template>
+        </ul>
+    </div>
+
+    <script>
+        // vue
+        const app = new Vue({
+            el: "#app",
+            data: {
+                arr1: ['a', 'b', 'c', 'a'],
+                arr2: [{
+                        name: "xyj",
+                        sex: '男',
+                        age: "28"
+                    },
+                    {
+                        name: "tony * stark",
+                        sex: '男',
+                        age: "33"
+                    },
+                    {
+                        name: "Harry * Potter",
+                        sex: '男',
+                        age: "21"
+                    }
+
+                ],
+                items:[
+                    {msg:"info"},
+                    {msg:"debug"},
+                    {msg:"error"},
+                    {msg:"warning"}
+                ]
+
+            },
+            methods: {
+
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>
