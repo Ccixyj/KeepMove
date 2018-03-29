@@ -34,6 +34,7 @@
     //自定义构造函数
 
     function Person(name, age, job) {
+        ``
         this.name = name;
         this.age = age;
         this.job = job;
@@ -49,13 +50,52 @@
     console.log(p2.constructor == Person) //true
 
     //构造函数
-    var p3 = new Person("nickoo",28,"PHPer");
+    var p3 = new Person("nickoo", 28, "PHPer");
     p3.sayName(); //nickoo
 
     //普通函数
-    Person("JJhon",20,"Javaer") //添加到windows对象
-    window.sayName() //JJhon
+    Person("JJhon", 20, "Javaer"); //添加到windows对象
+    window.sayName(); //JJhon
 
-    //宇健
-    
+    //在另一个对象的作用域中调用
+    var o = new Object();
+    Person.call(o, "Kate", 25, "Nurse")
+    o.sayName();
+
+    console.log(p1.sayName == p2.sayName) //false
+
+    function PersonPro() {
+
+    }
+
+    PersonPro.prototype.name = "Nick_Pro";
+    PersonPro.prototype.age = 29;
+    PersonPro.prototype.job = "Java_Pro";
+    PersonPro.prototype.sayName = function () {
+        console.log(this.name)
+    }
+    var per1 = new PersonPro()
+    per1.sayName() //Nick_Pro
+
+
+    var per2 = new PersonPro()
+    per1.sayName() //Nick_Pro
+
+    console.log(PersonPro.prototype.isPrototypeOf(per1))
+    console.log(PersonPro.prototype.isPrototypeOf(per2))
+
+    //ECMA 新增的Object.getPrototype() 
+    console.log(Object.getPrototypeOf(per1))
+    console.log(Object.getPrototypeOf(per2).name)
+
+   var per3 = new PersonPro();
+   per3.name = "hello"
+   console.log(per1.name)  // Nick_Pro 原型
+   console.log(per3.name)  //hello 实例
+
+   per3.name = null;
+   console.log(per3.name)  // 实例
+
+   delete per3.name        //delete 断开联系
+   console.log(per3.name)  // Nick_Pro 原型
 </script>
