@@ -13,8 +13,7 @@
 </body>
 
 </html>
-<script>  
-
+<script>
     // 工厂模式
     function createPerson(name, age, job) {
         var o = new Object();
@@ -90,16 +89,16 @@
 
     var per3 = new PersonPro();
     per3.name = "hello"
-    console.log(per1.name)  // Nick_Pro 原型
-    console.log(per3.name)  //hello 实例
+    console.log(per1.name) // Nick_Pro 原型
+    console.log(per3.name) //hello 实例
 
     per3.name = null;
-    console.log(per3.name)  // 实例
+    console.log(per3.name) // 实例
 
-    delete per3.name        //delete 断开联系
-    console.log(per3.name)  // Nick_Pro 原型
+    delete per3.name //delete 断开联系
+    console.log(per3.name) // Nick_Pro 原型
 
-    function PersonIN() { }
+    function PersonIN() {}
     PersonIN.prototype.name = "Nick"
     PersonIN.prototype.sayName = function () {
         console.log(this.name)
@@ -148,19 +147,52 @@
     console.log(po1.constructor == PersonOut) //falese
 
     var friend = new Person()
-    Person.prototype.sayHi= function(){
+    Person.prototype.sayHi = function () {
         console.log("hi")
     }
     friend.sayHi() //hi
 
-    function PersonC(){};
+    function PersonC() {};
     var pc = new PersonC()
     PersonC.prototype = {
-        constructor:PersonC,
-        name : 'nick',
-        sayName :function(){
+        constructor: PersonC,
+        name: 'nick',
+        sayName: function () {
             console.log(this.name)
         }
     };
-    pc.sayName() // Uncaught TypeError: pc.sayName is not a function
+    //  pc.sayName() // Uncaught TypeError: pc.sayName is not a function
+
+    function PersonArray() {};
+    PersonArray.prototype.name = "nick"
+    PersonArray.prototype.friends = ["bob", "dlean"]
+
+    var pa1 = new PersonArray();
+    var pa2 = new PersonArray();
+
+    pa1.friends.push("Vani");
+    console.log(pa1.friends); //["bob", "dlean", "Vani"]
+    console.log(pa2.friends); //["bob", "dlean", "Vani"]
+    console.log(pa1.friends === pa2.friends); //true
+
+    function PersonFinal(name, age) {
+        this.name = name
+        this.age = age
+        this.friends = ["shely", "yang"]
+    }
+    PersonFinal.prototype = {
+        constructor: PersonFinal,
+        sayName: function () {
+            console.log(this.name)
+        }
+    }
+
+    var pf1 = new PersonFinal("zane", 22)
+    var pf2 = new PersonFinal("Dom", 92)
+
+    pf1.friends.push("cindy")
+    console.log(pf1.friends) //["shely", "yang", "cindy"]
+    console.log(pf2.friends) //["shely", "yang"]
+    console.log(pf1.sayName == pf2.sayName) //true
+
 </script>
