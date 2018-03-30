@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>  
+
+    // 工厂模式
+    function createPerson(name, age, job) {
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.job = job;
+        o.sayName = function () {
+            console.log(this.name)
+        }
+        return o;
+    }
+    var p1 = createPerson("Nick", 29, "Sofe Engine")
+    var p2 = createPerson("John", 24, "Director")
+    p1.sayName() //Nick
+    p2.sayName() //John
+
+    //自定义构造函数
+
+    function Person(name, age, job) {
+        ``
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.sayName = function () {
+            console.log(this.name)
+        }
+    }
+    var p1 = new Person("Nick", 29, "Sofe Engine");
+    var p2 = new Person("John", 24, "Director");
+    p1.sayName() //Nick
+    p2.sayName() //John
+    console.log(p1.constructor == Person) //true
+    console.log(p2.constructor == Person) //true
+
+    //构造函数
+    var p3 = new Person("nickoo", 28, "PHPer");
+    p3.sayName(); //nickoo
+
+    //普通函数
+    Person("JJhon", 20, "Javaer"); //添加到windows对象
+    window.sayName(); //JJhon
+
+    //在另一个对象的作用域中调用
+    var o = new Object();
+    Person.call(o, "Kate", 25, "Nurse")
+    o.sayName();
+
+    console.log(p1.sayName == p2.sayName) //false
+
+    function PersonPro() {
+
+    }
+
+    PersonPro.prototype.name = "Nick_Pro";
+    PersonPro.prototype.age = 29;
+    PersonPro.prototype.job = "Java_Pro";
+    PersonPro.prototype.sayName = function () {
+        console.log(this.name)
+    }
+    var per1 = new PersonPro()
+    per1.sayName() //Nick_Pro
+
+
+    var per2 = new PersonPro()
+    per1.sayName() //Nick_Pro
+
+    console.log(PersonPro.prototype.isPrototypeOf(per1))
+    console.log(PersonPro.prototype.isPrototypeOf(per2))
+
+    //ECMA 新增的Object.getPrototype() 
+    console.log(Object.getPrototypeOf(per1))
+    console.log(Object.getPrototypeOf(per2).name)
+
+    var per3 = new PersonPro();
+    per3.name = "hello"
+    console.log(per1.name)  // Nick_Pro 原型
+    console.log(per3.name)  //hello 实例
+
+    per3.name = null;
+    console.log(per3.name)  // 实例
+
+    delete per3.name        //delete 断开联系
+    console.log(per3.name)  // Nick_Pro 原型
+
+    function PersonIN() { }
+    PersonIN.prototype.name = "Nick"
+    PersonIN.prototype.sayName = function () {
+        console.log(this.name)
+    }
+    var p1 = new PersonIN()
+    var p2 = new PersonIN()
+
+    console.log(p1.hasOwnProperty("name")) //false
+    console.log("name" in p1) //true
+    console.log("name" in p2) //true
+
+    p1.name = "jhon"
+    console.log("name" in p1) //true
+    console.log("================")
+    Object.defineProperty(p1, "age", {
+        value: 18,
+        enumerable: false
+    })
+    console.log("age" in p1) //true
+    for (let p in p1) {
+        console.log(`prop : ${p}`) //name , sayName
+    }
+
+    console.log(Object.keys(p1)) //["name"]
+    console.log(Object.getOwnPropertyNames(p1)) //["name", "age"]
+    console.log("================")
+    console.log(Object.keys(p1.__proto__)) //["name", "sayName"]
+    console.log(Object.getOwnPropertyNames(p1.__proto__)) //["constructor", "name", "sayName"]
+
+    function PersonOut() {
+
+    }
+
+    var p2 = new PersonOut()
+    PersonOut.prototype = {
+        name: "Nick",
+        age: 19,
+        job: "Java",
+        sayName: function () {
+            console.log(this.name)
+        }
+    }
+
+    var po1 = new PersonOut()
+    console.log(po1 instanceof PersonOut) // true
+    console.log(po1.constructor == PersonOut) //falese
+
+    var friend = new Person()
+    Person.prototype.sayHi= function(){
+        console.log("hi")
+    }
+    friend.sayHi() //hi
+
+    function PersonC(){};
+    var pc = new PersonC()
+    PersonC.prototype = {
+        constructor:PersonC,
+        name : 'nick',
+        sayName :function(){
+            console.log(this.name)
+        }
+    };
+    pc.sayName() // Uncaught TypeError: pc.sayName is not a function
+</script>
