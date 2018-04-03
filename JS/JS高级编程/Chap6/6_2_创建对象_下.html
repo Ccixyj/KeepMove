@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //动态原型模式
+    function Person(name , age ){
+        this.name = name ;
+        this.age = age;
+        if(typeof this.sayName != 'function'){
+            Person.prototype.sayName = function(){
+                console.log(this.name);
+            };
+        }
+    }
+
+    var frined = new Person("Rock",18)
+    frined.sayName() //Rock
+
+    //寄生构造模式
+    function PersonP(name , age){
+        var o = {};
+        o.name = name ;
+        o.age = age;
+        o.sayName = function (){
+            console.log(this.name)
+        }
+        return o ;
+    };
+    
+    var frinedO = new PersonP("doom",10000)
+    frinedO.sayName() //doom
+
+    function PersonS(name ,age){
+        var o = {};
+        //添加私变量和函数
+        Object.defineProperty(o,"name",{
+            value:name,
+            configurable:false,
+           
+        })
+        o.sayName  = function(){
+            console.log(name)
+        };
+        return o;
+    }
+    //注意，除了使用sayName()方法外，没有其访问
+    var po = PersonS("ricqiu","20")
+    po.sayName() 
+
+
+
+</script>
