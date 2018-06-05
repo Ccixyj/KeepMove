@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+
+
+    //super
+    function SuperType() {
+        this.property = true;
+    }
+    SuperType.prototype.getSuperValue = function () {
+        return this.property;
+    };
+
+
+    //sub
+    function SubType() {
+        this.subProperty = false;
+    }
+
+
+    //继承SuperType
+    SubType.prototype = new SuperType();
+
+    SubType.prototype.getSubValue = function () {
+        return this.subProperty;
+    };
+
+    let instance = new SubType();
+    console.log("property : " + instance.getSuperValue()) //true
+
+    SubType.prototype.getSuperValue = function () {
+        return false;
+    };
+    instance = new SubType();
+    console.log("property : " + instance.getSuperValue()) //false
+
+    SubType.prototype = {
+        getSubValue: function () {
+            return this.subProperty;
+        },
+        someMethod: function () {
+            return false;
+        }
+    };
+    instance = new SubType();
+    // console.log("property : " + instance.getSuperValue()) //error
+
+
+
+    console.log(instance instanceof Object)     //true
+    console.log(instance instanceof SuperType)   //true
+    console.log(instance instanceof SubType)   //true
+
+
+    console.log(Object.prototype.isPrototypeOf(instance))   //true
+    console.log(SuperType.prototype.isPrototypeOf(instance))   //true
+    console.log(SubType.prototype.isPrototypeOf(instance))   //true
+
+
+function SuperType(){
+    this.colors = ["red","blue","green"];
+}
+
+function SubType(){
+}
+
+//继承
+SubType.prototype = new SuperType();
+
+let ins1 = new SubType()
+ins1.colors.push("black")
+console.log(ins1.colors) //red , blue ,green ,black
+
+let ins2 = new SubType()
+console.log(ins2.colors)//red , blue ,green ,black
+
+</script>
