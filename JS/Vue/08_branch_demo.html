@@ -52,7 +52,7 @@
         <p>Will Name is: {{ name }} </p>
         <p> 名称:
             <input v-model="name" placeholder="add branch name" @keyup.enter="insert(name)">
-            <button @click="insert(name)" :disabled="name.trim() == ''">添加</button>
+            <button @click="insert(name)" :disabled="name.trim() == '' || findItem(name.trim())>=0 ">添加</button>
         </p>
 
         <p>Search Name is: {{ keyword }} </p>
@@ -117,6 +117,9 @@
 
             },
             methods: {
+                findItem(name){
+                  return   this.items.findIndex((it) => it.name == name)
+                },
                 del(id) {
                     // console.log(id);
                     let index = this.items.findIndex((it) => it.id == id)

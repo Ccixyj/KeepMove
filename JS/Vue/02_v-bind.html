@@ -14,7 +14,7 @@
     <div id="app">
 
         <h1 v-bind:title="myTitle1">这是一个h1</h1>
-        <h1 :title="myTitle2">这是一个h1</h1>
+        <h1 :title="myTitle2" @click="show(myTitle1)">这是一个h1</h1>
 
     </div>
 
@@ -25,6 +25,11 @@
             data: {
                 myTitle1: "这是一个title from  " + new Date().toLocaleString(),
                 myTitle2: "这是一个title from  " + new Date().toLocaleString()
+            },
+            methods:{
+                show:function(data){
+                    console.log(data)
+                }
             }
         })
     </script>
