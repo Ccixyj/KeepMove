@@ -40,7 +40,7 @@
             <tbody>
                 <tr v-for="it in filterItems(keyword)" :key="it.id">
                     <td>{{it.id}}</td>
-                    <td>{{it.name}}</td>
+                    <td v-color="'gree'">{{it.name}}</td>
                     <td>{{it.date | hello }}</td>
                     <td>
                         <a href="#" @click.prevent="del(it.id)">删除</a>
@@ -49,15 +49,15 @@
             </tbody>
         </table>
 
-        <p>Will Name is: {{ name }} </p>
+        <p  v-color="'#668877'">Will Name is: {{ name }} </p>
         <p> 名称:
             <input v-model="name" placeholder="add branch name" @keyup.enter="insert(name)">
             <button @click="insert(name)" :disabled="name.trim() == '' || findItem(name.trim())>=0 ">添加</button>
         </p>
 
-        <p v-fontSize="18">Search Name is: {{ keyword }} </p>
+        <p v-fontSize="33" v-color="'#112233'">Search Name is: {{ keyword }} </p>
         <p >
-            <input   v-model="keyword" type="text" v-focus>
+            <input  v-color="'blue'"  v-model="keyword" type="text" v-focus>
             
         </p>
         <!-- 缩写语法 -->
@@ -153,14 +153,20 @@
                 focus: {
                     inserted: function (el) {
                         el.focus()
+                    },
+                    unbind:function(){
+                        console.log("unbind")
                     }
                 },
             
                 'fontsize':function(el,bd){
                     console.log(bd.value)
                     el.style.fontSize = parseInt(bd.value)+ "px"
+                },
+               
+                'color':function(el,bd){
+                    el.style.color = bd.value
                 }
-
                 
             }
         })
