@@ -55,9 +55,9 @@
             <button @click="insert(name)" :disabled="name.trim() == ''">添加</button>
         </p>
 
-        <p>Search Name is: {{ keyword }} </p>
-        <p>
-            <input v-model="keyword" type="text" v-focus>
+        <p v-fontSize="18">Search Name is: {{ keyword }} </p>
+        <p >
+            <input   v-model="keyword" type="text" v-focus>
             
         </p>
         <!-- 缩写语法 -->
@@ -149,10 +149,16 @@
             directives: {
                 focus: {
                     inserted: function (el) {
-                        console.log(el);
                         el.focus()
                     }
+                },
+            
+                'fontsize':function(el,bd){
+                    console.log(bd.value)
+                    el.style.fontSize = parseInt(bd.value)+ "px"
                 }
+
+                
             }
         })
     </script>

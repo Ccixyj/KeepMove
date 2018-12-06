@@ -32,7 +32,7 @@
     <script>
         Vue.directive('demo', {
             bind: function (el, binding, vnode) {
-              
+                console.log("bind")
                 var s = JSON.stringify
                 el.innerHTML =
                     'name: ' + s(binding.name) + '<br>' +
@@ -44,6 +44,7 @@
                     el.dataset.innerHtml = el.innerHTML.toString();
             },
             inserted:function(el, binding, vnode){
+                console.log("inserted")
                 console.log(binding.value)
                 var s = JSON.stringify
                 var ss =
@@ -55,6 +56,12 @@
                     'vnode keys: ' + Object.keys(vnode).join(', ')
 
                     console.log(ss);
+            },
+            update(){
+                console.log("update")
+            },
+            componentUpdated(){
+                console.log("componentUpdated")
             }
         })
 
