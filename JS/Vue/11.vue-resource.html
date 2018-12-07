@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <script src="../Vue/vue-resource.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+     
+      function show(){
+          console.log("jsonp callback success : show")
+      }
+        new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                getInfo() {
+                    this.$http.get("http://127.0.0.1:8080/",{timeout:5000}).then(function (res) {
+                        console.log(res.body);
+                    });
+                }
+            },
+            created() {
+                console.log(Vue.http.interceptor)
+                this.getInfo()
+            },
+        })
+
+    </script>
+
+    <script src="http://127.0.0.1:8080/script?callback=show"></script>
+
+</body>
+
+</html>
