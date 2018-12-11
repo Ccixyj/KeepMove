@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <link rel="stylesheet" href="../Vue/animate.css">
+ 
+</head>
+
+<body>
+
+
+
+    <div id="app">
+        <button @click="flag=!flag">切换</button>
+        <transition enter-active-class="tada" , leave-active-class="bounceOut">
+            <h3 v-show="flag" class="animated">comments</h3>
+        </transition>
+    </div>
+
+    <script>
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                flag: true
+            }
+        })
+    </script>
+</body>
+
+</html>

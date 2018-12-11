@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <style>
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all  .8s ease;
+        }
+
+        /* 开始状态 */
+        .fade-enter{
+            transform: translateX(80px);
+            opacity: 0;
+        }
+        /* 结束状态 */
+        .fade-leave-to {
+            transform: translateY(80px);
+            opacity: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div id="app">
+        <button @click="flag=!flag">切换</button>
+        <transition name="fade">
+            <h3 v-show="flag">comments</h3>
+        </transition>
+    </div>
+
+    <script>
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                flag: true
+            }
+        })
+    </script>
+</body>
+
+</html>
