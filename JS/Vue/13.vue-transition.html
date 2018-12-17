@@ -10,18 +10,26 @@
     <style>
         .fade-enter-active,
         .fade-leave-active {
-            transition: all  .8s ease;
+            transition: all .8s ease;
         }
 
         /* 开始状态 */
-        .fade-enter{
+        .fade-enter {
             transform: translateX(80px);
             opacity: 0;
         }
+
         /* 结束状态 */
         .fade-leave-to {
             transform: translateY(80px);
             opacity: 0;
+        }
+
+        .ball {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%
         }
     </style>
 
@@ -36,6 +44,13 @@
         <transition name="fade">
             <h3 v-show="flag">comments</h3>
         </transition>
+
+        <button @click="start">到碗里来</button>
+
+        <transition @before-enter="beforeEnter" @@enter="enter" @after-enter="afterEnter">
+            <div class="ball" v-show="ballShow"></div>
+        </transition>
+
     </div>
 
     <script>
@@ -43,10 +58,30 @@
         let app = new Vue({
             el: "#app",
             data: {
-                flag: true
+                flag: true,
+                ballShow: true
+            },
+            methods: {
+                start() {
+                    this.ballShow = !this.ballShow
+                },
+                beforeEnter(el) {
+                    console.log("beforeEnter no start")
+                    el.style.transform="translate(0,0)"
+                },
+                enter(el) {
+                    console.log("enter")
+                    setInterval(()=>{
+                        el.style.transform="translate(0,0)"
+                    }, 100)
+                },
+                afterEnter(el) {
+                    console.log("afterEnter")
+                }
             }
         })
     </script>
+
 </body>
 
 </html>
