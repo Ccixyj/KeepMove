@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+</head>
+
+<body>
+
+
+
+    <div id="app">
+        <mycom1></mycom1>
+        <hr/>
+        <mycom2></mycom2>
+        <hr/>
+        <mycom3></mycom3>
+        <hr/>
+        <login></login>
+    </div>
+
+
+    <template id="templ3">
+        <div>
+            <h3>vue component 3</h3>
+            <div>good ok</div>
+        </div>
+    </template>
+
+    <template id="privateTempl">
+        <div>
+          <div>私有组件</div>
+          <div>{{msg}}</div>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("mycom1", Vue.extend({
+            template: "<h1> vue componet 1</h1>"
+        }))
+
+        Vue.component("mycom2", {
+            template: `<div>
+                    <h2> vue componet 2</h2>
+                    <div>used by  vue 2 </div>
+                </div>`
+        })
+
+        Vue.component("mycom3", {
+            template: "#templ3"
+        })
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            components: {
+                login: {
+                    template: `#privateTempl`,
+                    data() {
+                        return {
+                            msg:"msg->私有的data"
+                        }
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
