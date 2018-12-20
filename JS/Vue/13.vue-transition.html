@@ -129,7 +129,7 @@
 
             <div><button @click="shufflePeople">shufflePeople</button></div>
 
-            <transition-group name="people"  tag ="ul">
+            <transition-group name="people"  tag ="ul" appear>
                     <li v-for="(item,index) in peoples" :key="item.id" class="people" @click="del(index)"> {{item.name}}</li>
             </transition-group>
         </div>
@@ -139,7 +139,7 @@
 
     <script>
 
-        let app = new Vue({
+        let vm = new Vue({
             el: "#app",
             data: {
                 id:"",
