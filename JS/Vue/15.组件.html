@@ -7,7 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="../Vue/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 
 <body>
 
@@ -15,26 +24,37 @@
 
     <div id="app">
         <mycom1></mycom1>
-        <hr/>
+        <hr />
         <mycom2></mycom2>
-        <hr/>
+        <hr />
         <mycom3></mycom3>
-        <hr/>
+        <hr />
         <login></login>
     </div>
 
 
     <template id="templ3">
+
         <div>
             <h3>vue component 3</h3>
-            <div>good ok</div>
+            <div>good ok , {{tpl_3_msg}}</div>
+
+            <div class="row">
+
+                <div :class="clazz" class="col-xs-3 col-center-block">
+                    <strong>Title!</strong> this is alert body
+                </div>
+
+            </div>
+
+
         </div>
     </template>
 
     <template id="privateTempl">
         <div>
-          <div>私有组件</div>
-          <div>{{msg}}</div>
+            <div>私有组件</div>
+            <div>{{msg}}</div>
         </div>
     </template>
 
@@ -51,7 +71,13 @@
         })
 
         Vue.component("mycom3", {
-            template: "#templ3"
+            template: "#templ3",
+            data() {
+                return {
+                    tpl_3_msg: "this is tpl_3_msg",
+                    clazz: "alert alert-danger"
+                }
+            },
         })
 
         let app = new Vue({
@@ -64,7 +90,8 @@
                     template: `#privateTempl`,
                     data() {
                         return {
-                            msg:"msg->私有的data"
+                            msg: "msg->私有的data",
+
                         }
                     },
                 }

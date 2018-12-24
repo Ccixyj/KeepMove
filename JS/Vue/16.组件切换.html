@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    .component-fade-enter-active,
+    .component-fade-leave-active {
+        transition: all .3s ease;
+    }
+
+    .component-fade-enter,
+    .component-fade-leave-to
+
+    /* .component-fade-leave-active for below version 2.1.8 */
+        {
+        opacity: 0;
+        transform: translateX(180px)
+    }
+</style>
+
+<body>
+
+
+
+    <div id="app1">
+        <!-- 缺陷:只满足两种情况 -->
+        <a href="#" @click.prevent="login = true"> 登录 </a>
+        <a href="#" @click.prevent="login = false "> 注册 </a>
+
+        <hr />
+        <div>
+            <login v-if="login"></login>
+            <register v-else="login"></register>
+        </div>
+        <hr />
+    </div>
+
+    <div id="app2">
+        <a href="#" @click.prevent="comName = 'login'"> 登录 </a>
+        <a href="#" @click.prevent="comName = 'register' "> 注册 </a>
+        <hr />
+        <div>
+            <!-- 动画 -->
+            <transition mode="out-in" name="component-fade">
+                <component :is="comName"></component>
+            </transition>
+        </div>
+        <hr />
+    </div>
+
+
+
+
+    <script>
+        Vue.component("login", Vue.extend({
+            template: `
+            <div>
+                    <h1> vue componet login</h1> 
+                    <div>used debug  {{debug}} </div>
+            </div>
+            `,
+            data() {
+                return {
+                    debug: false
+                }
+            },
+            methods: {
+                dump() {
+                    if (this.debug) {
+                        debugger
+                    }
+                    console.log(this)
+                },
+                setDebug() {
+                    this.debug = !this.debug
+                }
+            },
+            created() {
+                console.log("created")
+            },
+            mounted() {
+                console.log("mounted")
+            },
+
+            beforeDestroy() {
+                console.log("beforeDestroy")
+                this.dump()
+            },
+            destroyed() {
+                console.log("destroyed")
+            },
+
+
+        }))
+
+        Vue.component("register", {
+            template: `<div>
+                    <h2> vue componet register</h2>
+                    <div>used by  vue 2 </div>
+                </div>`
+        })
+
+
+        let app1 = new Vue({
+            el: "#app1",
+            data: {
+                login: true
+            },
+
+        })
+
+        let app2 = new Vue({
+            el: "#app2",
+            data: {
+                comName: "login",
+                debug: false
+            },
+
+        })
+    </script>
+</body>
+
+</html>
