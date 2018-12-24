@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+    <div id="app1">
+        <hr />
+        <div>
+            <!-- 使用kebab-case（短横线）命名 -->
+            <my-com v-bind:parent-msg="pMsg" @func="show">
+
+            </my-com>
+            
+        </div>
+        <hr />
+    </div>
+    <script>
+
+
+        let app1 = new Vue({
+            el: "#app1",
+            data: {
+                pMsg: "this this parent msg"
+            },
+            methods: {
+                show(){
+                    console.log("from parent");
+                    console.log(this);
+                }
+            },
+            components: {
+                "my-com": {
+                    template: `
+            <div >
+                    <h1> vue componet parent</h1> 
+                    <h3> {{msg}}</h3> 
+                    <h3> {{parentMsg}}</h3> 
+                    <button @click='comClick'>click for show</button>
+            </div>
+            `,
+                    data() {
+                        return {
+                            msg: "this tis private msg"
+                        }
+                    },
+                    props:[
+                        // 可以使用kebab-case（短横线）对应的amelCased（驼峰式）命名
+                        "parentMsg" ,
+                    ],
+                    methods: {
+                        comClick(){
+                            this.$emit('func')
+                        }
+                    },
+                    created() {
+                       // this.func()
+                      // this.$emit('func')
+                    },
+                },
+            },
+           created() {
+               console.log(`this : ${this}`);
+               console.log(`show :  ${this.show}`);
+               this.show()
+           },
+
+        })
+
+
+    </script>
+</body>
+
+</html>
