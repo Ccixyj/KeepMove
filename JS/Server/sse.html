@@ -89,7 +89,7 @@
                 wsItem: [],
             },
             computed: {
-                enable: () => window.EventSource && false,
+                enable: () => window.EventSource ,
                 wsEnable: () => window.WebSocket,
             },
             methods: {
@@ -103,28 +103,29 @@
             },
             created() {
                 if (this.enable) {
-                    // console.log("connect sse ...")
+                    console.log("connect sse ...")
                     // let source = new EventSource('http://localhost:8080/api/server/sse/100');
-                    // console.log("ready state :" + source.readyState)
-                    // source.onopen = function (event) {
-                    //     console.log("ready on open")
+                    let source = new EventSource('http://localhost:8080/api/sse');
+                    console.log("ready state :" + source.readyState)
+                    source.onopen = function (event) {
+                        console.log("ready on open")
 
-                    // };
-                    // source.onopen = (event) => {
-                    //     this.items.push("ready on open")
-                    // };
-                    // source.onerror = (event) => {
-                    //     source.close()
-                    //     this.items.push("source close")
-                    // };
-                    // source.onmessage = (event) => {
-                    //     var data = event.data;
-                    //     var origin = event.origin;
-                    //     var lastEventId = event.lastEventId;
-                    //     // handle message
-                    //     console.dir(this.items)
-                    //     this.items.push(event.data)
-                    // };
+                    };
+                    source.onopen = (event) => {
+                        this.items.push("ready on open")
+                    };
+                    source.onerror = (event) => {
+                        source.close()
+                        this.items.push("source close")
+                    };
+                    source.onmessage = (event) => {
+                        var data = event.data;
+                        var origin = event.origin;
+                        var lastEventId = event.lastEventId;
+                        // handle message
+                        console.dir(this.items)
+                        this.items.push(event.data)
+                    };
                 }
                 if (this.wsEnable) {
                     this.ws = new WebSocket("ws://localhost:8080/api/ws");
