@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <template id="commentBox">
+        <div>
+            <div class="form-group">
+
+                <label>名字</label>
+                <input type="text" id="input" class="form-control" v-model="comment.name">
+            </div>
+
+            <div class="form-group">
+                <label>内容</label>
+
+                <textarea name="" id="input" class="form-control" v-model="comment.content"></textarea>
+
+            </div>
+            <div class="form-group ">
+                <button type="button" class="btn btn-primary center-block" @click="postComment">Add</button>
+            </div>
+
+
+        </div>
+    </template>
+
+    <div id="app1">
+
+        <com-box @success="loadComments"></com-box>
+        <hr />
+        <ul class="list-group">
+            <li class="list-group-item" v-for="(item, index) in items" :key="item.id + item.name">
+                <span class="badge">{{item.name}}</span>
+                {{item.content}}
+            </li>
+        </ul>
+
+        <hr />
+    </div>
+    <script>
+
+        var commentBox = {
+            template: "#commentBox",
+            data() {
+                return {
+                    comment: { id: Date.now(), name: "", content: "" },
+                }
+            },
+            methods: {
+                postComment() {
+                    const list = JSON.parse(localStorage.getItem("cmts") || '[]')
+                    list.unshift(this.comment)
+                    localStorage.setItem("cmts", JSON.stringify(list))
+                    this.comment.name = ""
+                    this.comment.content = ""
+                    this.$emit('success')
+                }
+            },
+        }
+
+        let app1 = new Vue({
+            el: "#app1",
+            data: {
+                items: [
+                    { id: Date.now(), name: "李白", content: "十步杀一人" },
+                    { id: Date.now(), name: "鲁迅", content: "我没有说过" },
+                    { id: Date.now(), name: "六小龄童", content: "改编不是瞎编，戏说不是胡说" },
+                ]
+            },
+            methods: {
+                loadComments() {
+                    this.items = JSON.parse(localStorage.getItem("cmts") || '[]')
+                }
+            },
+            created() {
+                localStorage.setItem("cmts", JSON.stringify(this.items))
+                this.loadComments()
+            },
+            components: {
+                "com-box": commentBox
+            }
+        })
+
+
+
+    </script>
+</body>
+
+</html>

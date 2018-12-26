@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+   
+    <div id="app1">
+        
+        <h3  ref="myh3">good day, this is h3</h3>
+       
+        <button @click="getDom">get dom and insert</button>
+
+    </div>
+    <script>
+
+        let app1 = new Vue({
+            el: "#app1",
+            data: {
+               
+            },
+            mounted() {
+                console.log(this.$refs);
+            },
+            methods: {
+               getDom(){
+                   //must after mounted
+                this.$refs.myh3.innerText += "\n add some from this.$refs"
+               }
+            },
+           
+         
+        })
+
+
+
+    </script>
+</body>
+
+</html>

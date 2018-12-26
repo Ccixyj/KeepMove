@@ -9,6 +9,7 @@
     <script src="../Vue/vue.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
 
@@ -20,7 +21,7 @@
             <my-com v-bind:parent-msg="pMsg" @func="show">
 
             </my-com>
-            
+
         </div>
         <hr />
     </div>
@@ -33,7 +34,7 @@
                 pMsg: "this this parent msg"
             },
             methods: {
-                show(){
+                show() {
                     console.log("from parent");
                     console.log(this);
                 }
@@ -53,26 +54,26 @@
                             msg: "this tis private msg"
                         }
                     },
-                    props:[
+                    props: [
                         // 可以使用kebab-case（短横线）对应的amelCased（驼峰式）命名
-                        "parentMsg" ,
+                        "parentMsg",
                     ],
                     methods: {
-                        comClick(){
+                        comClick() {
                             this.$emit('func')
                         }
                     },
                     created() {
-                       // this.func()
-                      // this.$emit('func')
+                        // this.func()
+                        // this.$emit('func')
                     },
                 },
             },
-           created() {
-               console.log(`this : ${this}`);
-               console.log(`show :  ${this.show}`);
-               this.show()
-           },
+            created() {
+                console.log(`this : ${this}`);
+                console.log(`show :  ${this.show}`);
+                this.show()
+            },
 
         })
 
