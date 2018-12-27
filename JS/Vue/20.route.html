@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <script src="../Vue/vue-router.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    .myActive {
+        color: red;
+        text-align: center;
+        font-size: 20px;
+        text-decoration: underline
+    }
+
+    .myActive:hover {
+        color: #FF00FF;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+
+
+    <div id="app">
+        <h1>Hello User!</h1>
+        <p>
+            <router-link to="/account/4">account</router-link>
+            <router-link to="/account/1/login" tag="span">login</router-link>
+            <router-link to="/account/2/register">register</router-link>
+            <hr>
+
+        </p>
+        <router-view></router-view>
+
+    </div>
+
+
+    <template id="login">
+        <h2>this is login</h2>
+    </template>
+    <template id="register">
+        <h2>this is register</h2>
+    </template>
+    <template id="account">
+        <div>
+            <h2>this is account -- user id {{$route.params.id}}</h2>
+            <router-view></router-view>
+        </div>
+    </template>
+    <template id="home">
+        <h2>this is home</h2>
+    </template>
+    <script>
+
+        const login = {
+            template: "#login",
+            created() {
+                console.log("login created");
+            },
+            beforeMount() {
+                console.log("login beforeMount");
+            },
+            mounted() {
+                console.log("login mounted");
+            },
+            destroyed() {
+                console.log("login destroyed");
+            },
+        }
+
+        const register = {
+            template: "#register",
+            created() {
+                console.log("register created");
+            },
+            beforeMount() {
+                console.log("register beforeMount");
+            },
+            mounted() {
+                console.log("register mounted");
+            },
+            destroyed() {
+                console.log("register destroyed");
+            },
+        }
+
+        const account = {
+            template: "#account",
+        }
+        const home = {
+            template: "#home",
+        }
+
+        var app = new Vue({
+            router: new VueRouter({
+                linkActiveClass: "myActive",
+                routes: [
+                    {
+                        path: "/account/:id",
+                        children: [
+                            { path: '', component: home },
+                            { path: 'login', component: login },
+                            { path: 'register', component: register },
+                        ],
+                        component: account
+                    }
+
+                ]
+            })
+
+        }).$mount("#app")
+
+
+    </script>
+</body>
+
+</html>
