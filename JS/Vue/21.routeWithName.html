@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../Vue/vue.js"></script>
+    <script src="../Vue/vue-router.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+
+</style>
+
+<body>
+
+
+    <div id="app">
+        <router-view name="header"></router-view>
+        <router-view name="left"></router-view>
+        <router-view name="main"></router-view>
+
+    </div>
+
+
+    <template id="header">
+        <h2>this is header</h2>
+    </template>
+    <template id="left">
+        <h2>this is left</h2>
+    </template>
+    <template id="main">
+        <div>
+            <h2>this is main</h2>
+        </div>
+    </template>
+    <script>
+
+        const header = {
+            template: "#header",
+
+        }
+
+        const left = {
+            template: "#left",
+
+        }
+
+        const main = {
+            template: "#main",
+        }
+
+        var app = new Vue({
+            router: new VueRouter({
+                linkActiveClass: "myActive",
+                routes: [
+                    {
+                        path: '/', components: {
+                            header: header,
+                            left: left,
+                            main: main,
+                        }
+                    },
+
+
+                ]
+            })
+
+        }).$mount("#app")
+
+
+    </script>
+</body>
+
+</html>
