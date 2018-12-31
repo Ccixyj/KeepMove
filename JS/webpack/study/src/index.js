@@ -1,6 +1,10 @@
 import _ from "lodash"
 import $ from "jquery"
+//config.js 配置可以处理的loader
+//loader的处理规则:从后往前
 import "./css/index.css"
+import "./css/index.less"
+import "./css/index.scss"
 
 function component() {
     var element = document.createElement('div');
@@ -11,7 +15,7 @@ function component() {
     return element;
   }
   
-  document.body.appendChildLast(component());
+  document.body.appendChild(component());
 
   $(function(){
       $("li:odd").css("background-color","pink")
