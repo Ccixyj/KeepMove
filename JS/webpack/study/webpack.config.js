@@ -47,6 +47,25 @@ module.exports = {
           'css-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|webp|gif)$/,
+        use: [
+          //less 规则
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[hash:8]-[name].[ext]'
+            }
+          }
+        ],
+
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ]
       }
     ]
   }

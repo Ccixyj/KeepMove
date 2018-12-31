@@ -1,8 +1,24 @@
 html body {
     margin: 0;
     padding: 0;
-    li{
+
+    li {
         font-size: 20px;
         line-height: 40px;
+    }
+
+    .box {
+        width: 200px;
+        height: 200px;
+        // webpack 无法处理url地址（资图库等）使用file-loader
+        background: url(../images/cat.jpeg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+
+    }
+    span {
+        width: 80px;
+        height: 80px;
+        font-size: 36px;
     }
 }
