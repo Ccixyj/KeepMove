@@ -98,7 +98,7 @@ module.exports = {
   resolve: {
     alias: {
       //vue 设置导入的路径
-      // "vue$" : "vue/dist/vue.js"
+      "vue$" : "vue/dist/vue.common.dev.js"
     }
   }
 };
