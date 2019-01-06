@@ -61,8 +61,10 @@ export default {
   position: absolute;
 }
 
-.app-content-enter-active,
-.app-content-leave-active {
+.app-content-
+enter-active,
+.app-content-
+leave-active {
   transition: all 0.6s ease;
 }
 </style>
