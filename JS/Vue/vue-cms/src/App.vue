@@ -3,7 +3,9 @@
     <mt-header fixed title="固定在顶部"></mt-header>
 
     <!-- content -->
-    <router-view></router-view>
+    <transition name="app-content">
+      <router-view></router-view>
+    </transition>
 
     <!-- //tab bar -->
     <nav class="mui-bar mui-bar-tab">
@@ -35,7 +37,6 @@ import { Header, Swipe, SwipeItem } from "mint-ui";
 
 Vue.component(Header.name, Header);
 
-
 export default {
   created: function() {
     console.log("app created");
@@ -46,5 +47,22 @@ export default {
 <style lang="scss">
 .app-container {
   padding-top: 40px;
+  overflow-x: hidden;
+}
+
+.app-content-enter,
+.app-content-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.app-content-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+
+.app-content-enter-active,
+.app-content-leave-active {
+  transition: all 0.6s ease;
 }
 </style>
