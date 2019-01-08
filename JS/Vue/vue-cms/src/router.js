@@ -4,6 +4,7 @@ import Home from './view/tabbar/HomeContainer.vue'
 import Member from './view/tabbar/MemberContainer.vue'
 import Search from './view/tabbar/SearchContainer.vue'
 import Cart from './view/tabbar/ShopCartContainer.vue'
+import HomeNews from './view/news/HomeNews.vue'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
   {
     path: '/cart',
     component: Cart
+  },
+
+  {
+    path: '/home/news',
+    component: HomeNews
   },
 ],
   linkActiveClass: 'mui-active'

@@ -1,6 +1,10 @@
 <template>
   <div id="app" class="app-container">
-    <mt-header fixed title="固定在顶部"></mt-header>
+    <mt-header fixed title="这是app">
+      <router-link to="/" slot="left" >
+        <mt-button icon="back"></mt-button>
+      </router-link>
+    </mt-header>
 
     <!-- content -->
     <transition name="app-content">
@@ -33,9 +37,10 @@
 
 <script>
 import Vue from "vue";
-import { Header, Swipe, SwipeItem } from "mint-ui";
+import { Header, Button   } from "mint-ui";
 
 Vue.component(Header.name, Header);
+Vue.component(Button.name, Button);
 
 export default {
   created: function() {
@@ -61,10 +66,8 @@ export default {
   position: absolute;
 }
 
-.app-content-
-enter-active,
-.app-content-
-leave-active {
+.app-content- enter-active,
+.app-content- leave-active {
   transition: all 0.6s ease;
 }
 </style>
