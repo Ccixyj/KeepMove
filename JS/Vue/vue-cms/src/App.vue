@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="app-container">
     <mt-header fixed title="这是app">
-      <router-link to="/" slot="left" >
+      <a @click.prevent="goBack"  slot="left" v-show="showBack">
         <mt-button icon="back"></mt-button>
-      </router-link>
+      </a>
     </mt-header>
 
     <!-- content -->
@@ -37,14 +37,29 @@
 
 <script>
 import Vue from "vue";
-import { Header, Button   } from "mint-ui";
+import { Header, Button } from "mint-ui";
 
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 
 export default {
+  computed:{
+    showBack : function(){
+      return  !["/home", "/member","/cart" , "/search"].includes(this.$route.path)
+    }
+  },
+  methods:{
+     goBack () {
+      window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/')
+    }
+  },
   created: function() {
     console.log("app created");
+  },
+  beforeUpdate: function() {
+    console.log("app route " + this.$route.path + ", length :" +window.history.length);
   }
 };
 </script>
@@ -52,6 +67,7 @@ export default {
 <style lang="scss">
 .app-container {
   padding-top: 40px;
+  margin-bottom: 50px;
   overflow-x: hidden;
 }
 

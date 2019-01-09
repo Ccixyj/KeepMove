@@ -1,24 +1,41 @@
 <template>
   <div id="home-news">
     <ul class="mui-table-view">
-      <li class="mui-table-view-cell mui-media">
-        <a href="javascript:;" class>
-          <img class="mui-media-object mui-pull-left" src="../../assets/logo.png">
+      <li class="mui-table-view-cell mui-media" v-for="(item) in newsList" :key="item.id">
+        <router-link  :to="'/home/news/'+item.id">
+          <img class="mui-media-object mui-pull-left" :src="item.image">
           <div class="mui-media-body">
-            <h1>幸福</h1>
+            <h1>{{item.title}}</h1>
             <p class="mui-ellipsis">
-              <span>时间:121212</span>
-              <span>浏览0次</span>
+              <span>{{item.date}}</span>
+              <span>浏览 {{item.click}} 次</span>
             </p>
           </div>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+data() {
+  return {
+    newsList:[]
+  }
+},
+methods:{
+  getNews(){
+    this.$api.get("/home/news",null,r=>{
+      this.newsList =  r.data
+      console.log(this.newsList);
+    })
+  }
+},
+  created(){
+    this.getNews()
+  }
+};
 </script>
 
 <style lang="scss" scoped>
