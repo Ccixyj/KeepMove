@@ -5,19 +5,14 @@
     <textarea maxlength="120" placeholder="最多输入10字"></textarea>
     <mt-button type="primary" size="large">发布评论</mt-button>
     <div class="comment-list">
-      <div class="comment-item">
-        <div class="comment-title">发表用户:匿名</div>
-        <div class="comment-body">nihc ac cwdwdwdwddwd</div>
+      <div class="comment-item" v-for="(item , index) in page.data" :key="item.id">
+        <div
+          class="comment-title"
+        >第{{index + 1}}条 &nbsp; &nbsp;用户:{{item.userName || "匿名用户"}} &nbsp; &nbsp; 发表时间:{{item.date}}</div>
+        <div class="comment-body">{{item.comment}}</div>
       </div>
-       <div class="comment-item">
-        <div class="comment-title">发表用户:匿名</div>
-        <div class="comment-body">nihc ac cwdwdwdwddwd</div>
-      </div>
-       <div class="comment-item">
-        <div class="comment-title">发表用户:匿名</div>
-        <div class="comment-body">nihc ac cwdwdwdwddwd</div>
-      </div>
-      <mt-button type="danger" plain size="large">加载更多</mt-button>
+      <mt-button type="danger" plain size="large" @click="next" v-if="!page.isLast">加载更多</mt-button>
+      <div class="end" v-else>已加载全部</div>
     </div>
   </div>
 </template>
@@ -25,10 +20,44 @@
 
 <script>
 import Vue from "vue";
-import { Button } from "mint-ui";
+import { Button, Toast } from "mint-ui";
 Vue.component(Button.name, Button);
 
-export default {};
+export default {
+  data() {
+    return {
+      page: {
+        current: 1,
+        pageSize: 10,
+        isLast:false,
+        data: []
+      },
+    };
+  },
+  props: ["id"],
+  methods: {
+    next() {
+      this.getCommentsList({page:this.page.current +1 , pageSize:this.page.pageSize});
+    },
+    getCommentsList(pageReq) {
+      this.$api.get(
+        `/comment/${this.id}`,
+        pageReq,
+        r => {
+          let d = this.page.data
+          this.page = r.data
+          this.page.data = d.concat(this.page.data)
+        },
+        e => {
+          Toast("加载评论失败!");
+        }
+      );
+    }
+  },
+  created() {
+    this.getCommentsList();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -47,16 +76,23 @@ export default {};
     margin: 8px 0px;
     .comment-item {
       .comment-title {
-        font-size: 13px;
+        font-size: 12px;
         background-color: #ccc;
         line-height: 30px;
       }
 
       .comment-body {
-        text-indent: 2em;
+        word-break: break-all;
+        margin: 8px 0;
         font-size: 14px;
-        line-height: 40px;
+        color: #333;
       }
+    }
+    .end{
+       font-size: 12px;
+       color: #aaa;
+       text-align: center;
+       line-height: 24px;
     }
   }
 }

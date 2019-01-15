@@ -51,7 +51,7 @@ function apiAxios(method, url, params, success, failure) {
         }
       } else {
         if (failure) {
-          failure(res.data)
+          failure(res.msg)
         } else {
           window.alert('error: ' + JSON.stringify(res.data))
         }

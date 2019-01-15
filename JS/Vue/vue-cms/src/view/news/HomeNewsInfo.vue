@@ -8,7 +8,7 @@
         <!-- 内容 -->
         <div class="content" v-html="newInfo.content"></div>
         <!-- 评论区域 -->
-        <comment-box></comment-box>
+        <comment-box :id="this.newInfo.id" v-if="this.newInfo.id"></comment-box>
     </div>
 </template>
 
@@ -24,7 +24,6 @@ export default {
         this.$api.get("/home/news/"+this.$route.params.id , null ,r=>{
             this.newInfo = r.data
         })
-        console.log(cmt);
     },
     components:{
         "comment-box":cmt
