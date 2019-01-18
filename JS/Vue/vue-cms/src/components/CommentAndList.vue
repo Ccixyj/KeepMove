@@ -2,8 +2,8 @@
   <div id="comment">
     <h3>评论列表</h3>
     <hr>
-    <textarea maxlength="120" placeholder="最多输入10字"></textarea>
-    <mt-button type="primary" size="large">发布评论</mt-button>
+    <textarea maxlength="120" placeholder="最多输入10字" v-model="comment"></textarea>
+    <mt-button type="primary" size="large" @click="post">发布评论</mt-button>
     <div class="comment-list">
       <div class="comment-item" v-for="(item , index) in page.data" :key="item.id">
         <div
@@ -26,32 +26,59 @@ Vue.component(Button.name, Button);
 export default {
   data() {
     return {
+      comment: "",
       page: {
         current: 1,
         pageSize: 10,
-        isLast:false,
+        isLast: false,
         data: []
-      },
+      }
     };
   },
   props: ["id"],
   methods: {
     next() {
-      this.getCommentsList({page:this.page.current +1 , pageSize:this.page.pageSize});
+      this.getCommentsList({
+        page: this.page.current + 1,
+        pageSize: this.page.pageSize
+      });
     },
     getCommentsList(pageReq) {
       this.$api.get(
         `/comment/${this.id}`,
         pageReq,
         r => {
-          let d = this.page.data
-          this.page = r.data
-          this.page.data = d.concat(this.page.data)
+          let d = this.page.data;
+          this.page = r.data;
+          this.page.data = d.concat(this.page.data);
         },
         e => {
           Toast("加载评论失败!");
         }
       );
+    },
+    post() {
+      if (this.comment.trim().length > 0) {
+        console.log("could post");
+        this.$api.post(
+          `/comment/post`,
+          {
+            id: this.id,
+            comment: this.comment
+          },
+          r => {
+            this.comment = "";
+            this.page.data.unshift(r.data)
+            Toast(`发布评论成功!`);
+          },
+          e => {
+            Toast(`发布评论失败,${e.msg}`);
+          }
+        );
+      } else {
+        console.log("could not post");
+        Toast("评论不能为空!");
+      }
     }
   },
   created() {
@@ -88,11 +115,11 @@ export default {
         color: #333;
       }
     }
-    .end{
-       font-size: 12px;
-       color: #aaa;
-       text-align: center;
-       line-height: 24px;
+    .end {
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      line-height: 24px;
     }
   }
 }

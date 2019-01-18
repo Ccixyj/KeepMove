@@ -37,8 +37,7 @@
 
 <script>
 import Vue from "vue";
-import { Header, Button } from "mint-ui";
-
+import { Header, Button , Toast  } from "mint-ui";
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 
