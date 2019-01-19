@@ -41,6 +41,5 @@ export default new Router({
     path: '/home/news/:id',
     component: HomeNewsInfo
   },
-],
-  linkActiveClass: 'mui-active'
+]
 })

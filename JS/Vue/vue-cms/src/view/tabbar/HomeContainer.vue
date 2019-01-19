@@ -1,13 +1,16 @@
 <template>
+<!--  -->
   <div class="home-container">
     <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="item in items" :key="item.url">
+      <mt-swipe-item v-for="(item , index) in items" :key="index + item.url">
         <img :src="item.image" alt srcset>
       </mt-swipe-item>
     </mt-swipe>
+
+    
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <router-link to='/home/news'>
+        <router-link to="/home/news">
           <img src="../../assets/images/menu1.png">
           <div class="mui-media-body">新闻资讯</div>
         </router-link>

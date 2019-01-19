@@ -8,6 +8,8 @@ import 'mint-ui/lib/style.css'
 // mui css 注意顺序
 import '../lib/mui/css/mui.min.css'
 import '../lib/mui/css/icons-extra.css'
+// vant
+import 'vant/lib/index.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
