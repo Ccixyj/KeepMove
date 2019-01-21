@@ -9,6 +9,8 @@
     <!-- content -->
     <transition name="app-content">
       <router-view></router-view>
+      <!-- <keep-alive>
+      </keep-alive> -->
     </transition>
 
     <van-tabbar v-model="active">
@@ -23,10 +25,8 @@
 <script>
 import Vue from "vue";
 
-import { NavBar } from "vant";
-import { Tabbar, TabbarItem } from "vant";
-Vue.use(NavBar);
-Vue.use(Tabbar).use(TabbarItem);
+import { NavBar ,Tabbar, TabbarItem } from "vant";
+Vue.use(NavBar).use(Tabbar).use(TabbarItem);
 
 export default {
   data() {

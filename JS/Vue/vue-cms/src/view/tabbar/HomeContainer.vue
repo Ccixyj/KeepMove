@@ -6,9 +6,10 @@
         <img :src="item.image" alt srcset>
       </mt-swipe-item>
     </mt-swipe>-->
-    <van-swipe :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(item ) in items" :key="item.url" >
-        <img v-lazy="item.image" >
+    <van-loading v-if="items.length <= 0" color="#4D6BFF"/>
+    <van-swipe v-else :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="(item ) in items" :key="item.url">
+        <img v-lazy="item.image">
       </van-swipe-item>
     </van-swipe>
 
@@ -62,12 +63,19 @@
 <script>
 import Vue from "vue";
 
-import { Swipe, SwipeItem } from "vant";
-Vue.use(Swipe).use(SwipeItem);
-import { Row, Col } from "vant";
-Vue.use(Row).use(Col);
-import { Lazyload } from 'vant';
-Vue.use(Lazyload);
+import { Row, Col, Loading, Swipe, SwipeItem, Lazyload, Toast ,Notify } from "vant";
+Vue.use(Swipe)
+  .use(SwipeItem)
+  .use(Row)
+  .use(Col)
+  .use(Lazyload)
+  .use(Toast)
+  .use(Notify)
+  .use(Loading);
+Notify.setDefaultOptions({
+  duration: 1000,
+  background:"#4D6BFF"
+})
 export default {
   data() {
     return {
@@ -78,6 +86,7 @@ export default {
   created() {
     this.$api.get("/home/lunbo", null, d => {
       this.items = d.data;
+         this.$notify({message: "首页加载成功", });
     });
   }
 };
@@ -85,6 +94,11 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
+  .van-loading {
+    height: 200px;
+    margin: 0 auto;
+  }
+
   .van-swipe {
     height: 200px;
 
