@@ -5,13 +5,16 @@
       :left-text="navBackTxt"
       :left-arrow="showBack"
       @click-left="goBack"
+      fixed
     />
     <!-- content -->
-    <transition name="app-content">
-      <router-view></router-view>
-      <!-- <keep-alive>
-      </keep-alive> -->
-    </transition>
+    <div class="main-content">
+      <transition name="app-content">
+        <router-view></router-view>
+        <!-- <keep-alive>
+        </keep-alive>-->
+      </transition>
+    </div>
 
     <van-tabbar v-model="active">
       <van-tabbar-item icon="home-o" to="/home">标签</van-tabbar-item>
@@ -25,8 +28,10 @@
 <script>
 import Vue from "vue";
 
-import { NavBar ,Tabbar, TabbarItem } from "vant";
-Vue.use(NavBar).use(Tabbar).use(TabbarItem);
+import { NavBar, Tabbar, TabbarItem } from "vant";
+Vue.use(NavBar)
+  .use(Tabbar)
+  .use(TabbarItem);
 
 export default {
   data() {
@@ -61,6 +66,9 @@ export default {
 </script>
 
 <style lang="scss">
+.main-content{
+  padding-top: 46px;
+}
 .app-container {
   margin-bottom: 50px;
   overflow-x: hidden;

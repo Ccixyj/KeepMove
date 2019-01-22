@@ -1,41 +1,30 @@
 <template>
   <div id="home-news">
-    <van-pull-refresh v-model="isLoading" @refresh="getNews">
-      <van-cell v-for="(item) in newsList" :key="item.id" border clickable>
-        <div slot="icon" class="image-holder">
-          <img :src="item.image">
-        </div>
-
-        <div slot="title" class="cell-title">
-          <h3 class="title">{{item.title}} {{item.title}}</h3>
-          <div class="ellipsis">
-            <span>{{item.date}}</span>
-            <span>浏览 {{item.click}} 次</span>
+    <van-pull-refresh v-model="refreshing" @refresh="getNews">
+      <van-list v-model="loading" :finished="finished" @load="getNews">
+        <van-cell v-for="(item) in newsList" :key="item.id" border clickable>
+          <div slot="icon" class="image-holder">
+            <img :src="item.image">
           </div>
-        </div>
-      </van-cell>
-    </van-pull-refresh>
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell mui-media" v-for="(item) in newsList" :key="item.id">
-        <router-link :to="'/home/news/'+item.id">
-          <img class="mui-media-object mui-pull-left" :src="item.image">
-          <div class="mui-media-body">
-            <h1>{{item.title}}</h1>
-            <p class="mui-ellipsis">
+
+          <div slot="title" class="cell-title">
+            <h3 class="title">{{item.title}} {{item.title}}</h3>
+            <div class="ellipsis">
               <span>{{item.date}}</span>
               <span>浏览 {{item.click}} 次</span>
-            </p>
+            </div>
           </div>
-        </router-link>
-      </li>
-    </ul>
+        </van-cell>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import { Loading, Notify, PullRefresh, Cell } from "vant";
+import { Loading, Notify, PullRefresh, Cell, List } from "vant";
 Vue.use(PullRefresh)
+  .use(List)
   .use(Cell)
   .use(Notify)
   .use(Loading);
@@ -43,37 +32,46 @@ Vue.use(PullRefresh)
 export default {
   data() {
     return {
-      isLoading: true,
+      loading: false,
+      finished: false,
+      refreshing: false,
+      error: false,
       newsList: []
     };
   },
   methods: {
     getNews() {
-      this.isLoading = true;
-      this.$api.get("/home/news", null, r => {
-        this.newsList = r.data;
-        this.isLoading = false;
-        console.log(this.newsList);
-      });
+      this.$api.get(
+        "/home/news",
+        null,
+        r => {
+          this.loading = false;
+          this.refreshing = false;
+          this.newsList = r.data;
+          this.finished = true;
+          console.log(this.newsList);
+        },
+        e => {
+          this.error = true;
+        }
+      );
     }
   },
   created() {
-    this.getNews();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
 #home-news {
+  margin-bottom: 50px;
   .van-pull-refresh {
-    &,
-    &__track {
-      height: calc(100vh - 50px - 46px);
-    }
     .van-cell {
       height: auto;
       max-height: 120px;
-
+  
+      
       .cell-title {
         overflow: hidden;
         display: flex;
@@ -101,36 +99,19 @@ export default {
         margin-right: 10px;
         width: 25%;
         height: 100%;
-        display: inline-block;
-        vertical-align: middle;
+        align-self: center;
         img {
           height: 100%;
           width: 100%;
           border-radius: 4px;
+        
         }
-        img:after {
-          content: "12222444 ";
-          display: block;
-          height: 100%;
-        }
+        
       }
 
       span {
         color: #222c6c;
       }
-    }
-  }
-
-  li {
-    h1 {
-      font-size: 18px;
-      color: #222;
-    }
-    .mui-ellipsis {
-      color: #222c6c;
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
     }
   }
 }
