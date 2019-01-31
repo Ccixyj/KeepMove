@@ -3,7 +3,7 @@
     <h3>评论列表</h3>
     <hr>
     <textarea maxlength="120" placeholder="最多输入10字" v-model="comment"></textarea>
-    <mt-button type="primary" size="large" @click="post">发布评论</mt-button>
+    <van-button type="primary" size="large" @click="post">发布评论</van-button>
     <div class="comment-list">
       <div class="comment-item" v-for="(item , index) in page.data" :key="item.id">
         <div
@@ -11,7 +11,7 @@
         >第{{index + 1}}条 &nbsp; &nbsp;用户:{{item.userName || "匿名用户"}} &nbsp; &nbsp; 发表时间:{{item.date}}</div>
         <div class="comment-body">{{item.comment}}</div>
       </div>
-      <mt-button type="danger" plain size="large" @click="next" v-if="!page.isLast">加载更多</mt-button>
+      <van-button type="danger" plain size="large" @click="next" v-if="!page.isLast">加载更多</van-button>
       <div class="end" v-else>已加载全部</div>
     </div>
   </div>
@@ -20,8 +20,8 @@
 
 <script>
 import Vue from "vue";
-import { Button, Toast } from "mint-ui";
-Vue.component(Button.name, Button);
+import { Toast, Button } from "vant";
+Vue.use(Toast).use(Button);
 
 export default {
   data() {
@@ -53,7 +53,7 @@ export default {
           this.page.data = d.concat(this.page.data);
         },
         e => {
-          Toast("加载评论失败!");
+          Toast.fail("加载评论失败!");
         }
       );
     },
@@ -68,22 +68,23 @@ export default {
           },
           r => {
             this.comment = "";
-            this.page.data.unshift(r.data)
-            Toast(`发布评论成功!`);
+            this.page.data.unshift(r.data);
+            Toast.success(`发布评论成功!`);
           },
           e => {
-            Toast(`发布评论失败,${e.msg}`);
+            Toast.success(`发布评论失败,${e.msg}`);
           }
         );
       } else {
         console.log("could not post");
-        Toast("评论不能为空!");
+        this.$toast.fail("评论不能为空!");
       }
     }
   },
   created() {
     this.getCommentsList();
   }
+
 };
 </script>
 

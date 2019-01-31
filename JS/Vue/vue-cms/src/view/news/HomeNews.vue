@@ -2,7 +2,7 @@
   <div id="home-news">
     <van-pull-refresh v-model="refreshing" @refresh="getNews">
       <van-list v-model="loading" :finished="finished" @load="getNews">
-        <van-cell v-for="(item) in newsList" :key="item.id" border clickable>
+        <van-cell v-for="(item) in newsList" :key="item.id" border clickable :to="'/home/news/'+item.id">
           <div slot="icon" class="image-holder">
             <img :src="item.image">
           </div>

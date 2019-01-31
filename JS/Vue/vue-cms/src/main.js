@@ -14,6 +14,12 @@ import 'vant/lib/index.css'
 Vue.config.productionTip = false
 Vue.prototype.$api = api
 
+
+import { Toast } from 'vant';
+Vue.use(Toast);
+Toast.setDefaultOptions({
+  duration: 1200
+});
 new Vue({
   router,
   store,

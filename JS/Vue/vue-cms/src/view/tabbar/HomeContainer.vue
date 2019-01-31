@@ -63,7 +63,16 @@
 <script>
 import Vue from "vue";
 
-import { Row, Col, Loading, Swipe, SwipeItem, Lazyload, Toast ,Notify } from "vant";
+import {
+  Row,
+  Col,
+  Loading,
+  Swipe,
+  SwipeItem,
+  Lazyload,
+  Toast,
+  Notify
+} from "vant";
 Vue.use(Swipe)
   .use(SwipeItem)
   .use(Row)
@@ -74,8 +83,8 @@ Vue.use(Swipe)
   .use(Loading);
 Notify.setDefaultOptions({
   duration: 1000,
-  background:"#4D6BFF"
-})
+  background: "#4D6BFF"
+});
 export default {
   data() {
     return {
@@ -86,7 +95,7 @@ export default {
   created() {
     this.$api.get("/home/lunbo", null, d => {
       this.items = d.data;
-         this.$notify({message: "首页加载成功", });
+      this.$notify({ message: "首页加载成功" });
     });
   }
 };

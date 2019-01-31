@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
-.main-content{
+.main-content {
   padding-top: 46px;
 }
 .app-container {

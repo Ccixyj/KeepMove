@@ -1,15 +1,12 @@
 <template>
-      <div>
-        <h2>this is search</h2>
-    </div>
+  <div>
+    <h2>this is search</h2>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 </style>
