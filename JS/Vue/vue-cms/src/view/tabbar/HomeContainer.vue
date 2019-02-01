@@ -22,11 +22,11 @@
           </router-link>
         </van-col>
         <van-col span="6">
-          <a href="#">
+          <router-link to="/home/photos">
             <img src="../../assets/images/menu2.png">
 
             <div class="col-text">图片专区</div>
-          </a>
+          </router-link>
         </van-col>
         <van-col span="6">
           <a href="#">
