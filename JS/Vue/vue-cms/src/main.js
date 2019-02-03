@@ -10,16 +10,14 @@ import '../lib/mui/css/mui.min.css'
 import '../lib/mui/css/icons-extra.css'
 // vant
 import 'vant/lib/index.css'
-
+import { Toast } from 'vant'
+Vue.use(Toast)
 Vue.config.productionTip = false
 Vue.prototype.$api = api
 
-
-import { Toast } from 'vant';
-Vue.use(Toast);
 Toast.setDefaultOptions({
   duration: 1200
-});
+})
 new Vue({
   router,
   store,
