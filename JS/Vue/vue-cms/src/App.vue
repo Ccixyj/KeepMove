@@ -6,6 +6,7 @@
       :left-arrow="showBack"
       @click-left="goBack"
       fixed
+      :z-index="100"
     />
     <!-- content -->
     <div class="main-content">
